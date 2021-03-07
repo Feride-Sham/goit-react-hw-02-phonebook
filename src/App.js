@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import { v4 as id } from "uuid";
 import ContactForm from "./components/ContactForm/ContactForm";
 import Filter from "./components/Filter/Filter.js";
 import ContactList from "./components/ContactList/ContactList";
 import "./App.css";
-import { v4 as id } from "uuid";
+
 id();
 
 class App extends Component {
@@ -17,7 +18,8 @@ class App extends Component {
     filter: "",
   };
 
-  // перезаписывает массив контактов
+  // перезаписывает массив контактов и
+  // запрещает сохранить уже существующий контакт
   formSubmitHandler = ({ name, number }) => {
     const { contacts } = this.state;
     const contact = {

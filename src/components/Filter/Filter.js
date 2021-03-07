@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Filter = ({ filterValue, onToFilter }) => {
   return (
@@ -9,6 +10,11 @@ const Filter = ({ filterValue, onToFilter }) => {
       </label>
     </form>
   );
+};
+
+Filter.propTypes = {
+  filterValue: PropTypes.string.isRequired,
+  onToFilter: PropTypes.func.isRequired,
 };
 
 export default Filter;
