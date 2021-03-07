@@ -37,19 +37,32 @@ class App extends Component {
     }));
   };
 
+  toFilter = (ev) => {
+    this.setState({ filter: ev.currentTarget.value });
+  };
+
   render() {
-    const { contacts } = this.state;
+    const { contacts, filter } = this.state;
+    const { formSubmitHandler, toFilter, deleteContact } = this;
+
+    const normFilter = filter.toLowerCase();
+    console.log(normFilter);
+    // фильтрация
+    const filteredContacts = contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(normFilter)
+    );
+    console.log(filteredContacts);
 
     return (
       <div className="App">
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.formSubmitHandler} />
+        <ContactForm onSubmit={formSubmitHandler} />
 
         <h2>Contacts</h2>
-        <Filter />
+        <Filter filterValue={filter} onToFilter={toFilter} />
         <ContactList
-          contactList={contacts}
-          onDeleteContact={this.deleteContact}
+          contactList={filteredContacts}
+          onDeleteContact={deleteContact}
         />
       </div>
     );
