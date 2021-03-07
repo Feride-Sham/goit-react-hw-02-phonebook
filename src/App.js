@@ -13,8 +13,10 @@ class App extends Component {
       { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
     ],
     filter: "",
-    name: "",
-    number: "",
+  };
+
+  formSubmitHandler = (data) => {
+    console.log(data);
   };
 
   deleteContact = (contactId) => {
@@ -28,11 +30,10 @@ class App extends Component {
   render() {
     const { contacts } = this.state;
 
-    console.log(contacts);
     return (
       <div className="App">
         <h1>Phonebook</h1>
-        <ContactForm />
+        <ContactForm onSubmit={this.formSubmitHandler} />
 
         <h2>Contacts</h2>
         <Filter />
