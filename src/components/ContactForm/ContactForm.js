@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import { v4 as id } from "uuid";
-id();
+// import { v4 as id } from "uuid";
+// id();
 
 class ContactForm extends Component {
   state = {
@@ -34,7 +34,7 @@ class ContactForm extends Component {
     const { name, number } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <label htmlFor={id()}>
+        <label>
           Name
           <input
             type="text"

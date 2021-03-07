@@ -3,6 +3,8 @@ import ContactForm from "./components/ContactForm/ContactForm";
 import Filter from "./components/Filter/Filter.js";
 import ContactList from "./components/ContactList/ContactList";
 import "./App.css";
+import { v4 as id } from "uuid";
+id();
 
 class App extends Component {
   state = {
@@ -15,8 +17,16 @@ class App extends Component {
     filter: "",
   };
 
-  formSubmitHandler = (data) => {
-    console.log(data);
+  formSubmitHandler = ({ name, number }) => {
+    const contact = {
+      id: id(),
+      name,
+      number,
+    };
+
+    this.setState((prevState) => ({
+      contacts: [contact, ...prevState.contacts],
+    }));
   };
 
   deleteContact = (contactId) => {

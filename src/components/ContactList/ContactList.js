@@ -8,10 +8,10 @@ const ContactList = ({ contactList, onDeleteContact }) => {
     //   <ContactListItem />
     // </ul>
     <ul>
-      {contactList.map(({ id, name }) => (
+      {contactList.map(({ id, name, number }) => (
         // <ContactListItem item={name} key={id} />
         <li key={id}>
-          {name}{" "}
+          <p>{name}: </p> <p>{number}</p>
           <button type="button" onClick={() => onDeleteContact(id)}>
             Delete
           </button>
