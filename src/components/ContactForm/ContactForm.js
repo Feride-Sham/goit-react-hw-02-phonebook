@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 
-// import { v4 as id } from "uuid";
-// id();
-
 class ContactForm extends Component {
   state = {
     name: "",

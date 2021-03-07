@@ -17,18 +17,29 @@ class App extends Component {
     filter: "",
   };
 
+  // перезаписывает массив контактов
   formSubmitHandler = ({ name, number }) => {
+    const { contacts } = this.state;
     const contact = {
       id: id(),
       name,
       number,
     };
 
+    if (
+      contacts.find(
+        (contact) => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      alert(`${name} уже есть в списке ваших контактов`);
+      return;
+    }
     this.setState((prevState) => ({
       contacts: [contact, ...prevState.contacts],
     }));
   };
 
+  // удаляет контакты
   deleteContact = (contactId) => {
     this.setState((prevState) => ({
       contacts: prevState.contacts.filter(
@@ -37,21 +48,29 @@ class App extends Component {
     }));
   };
 
-  toFilter = (ev) => {
+  // получает введенное значение из фильтра
+  toChangeFilter = (ev) => {
     this.setState({ filter: ev.currentTarget.value });
   };
 
-  render() {
+  // отрисовывает контакту по значению из фильтра
+  renderFilteredContacts = () => {
     const { contacts, filter } = this.state;
-    const { formSubmitHandler, toFilter, deleteContact } = this;
-
     const normFilter = filter.toLowerCase();
-    console.log(normFilter);
-    // фильтрация
-    const filteredContacts = contacts.filter((contact) =>
+    return contacts.filter((contact) =>
       contact.name.toLowerCase().includes(normFilter)
     );
-    console.log(filteredContacts);
+  };
+
+  render() {
+    const { filter } = this.state;
+    const {
+      formSubmitHandler,
+      toChangeFilter,
+      deleteContact,
+      renderFilteredContacts,
+    } = this;
+    const filteredContacts = renderFilteredContacts();
 
     return (
       <div className="App">
@@ -59,7 +78,7 @@ class App extends Component {
         <ContactForm onSubmit={formSubmitHandler} />
 
         <h2>Contacts</h2>
-        <Filter filterValue={filter} onToFilter={toFilter} />
+        <Filter filterValue={filter} onToFilter={toChangeFilter} />
         <ContactList
           contactList={filteredContacts}
           onDeleteContact={deleteContact}
