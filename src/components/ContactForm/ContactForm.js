@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import s from "./ContactForm.module.css";
 
 class ContactForm extends Component {
   state = {
@@ -15,6 +16,11 @@ class ContactForm extends Component {
   // отправляет данные введеные в форме
   handleSubmit = (ev) => {
     ev.preventDefault();
+    const { number } = this.state;
+    if (Number.isNaN(+number)) {
+      alert("Sorry! Phone number must contain only numbers ");
+      return;
+    }
     this.props.onSubmit(this.state);
     this.resetForm();
   };
@@ -30,8 +36,8 @@ class ContactForm extends Component {
   render() {
     const { name, number } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
+      <form className={s.container} onSubmit={this.handleSubmit}>
+        <label className={s.label}>
           Name
           <input
             type="text"
@@ -40,7 +46,7 @@ class ContactForm extends Component {
             onChange={this.handleInputChange}
           />
         </label>
-        <label>
+        <label className={s.label}>
           Phone
           <input
             type="text"
@@ -49,7 +55,9 @@ class ContactForm extends Component {
             onChange={this.handleInputChange}
           />
         </label>
-        <button type="submit">Add contact</button>
+        <button className={s.btnSubmit} type="submit">
+          Add contact
+        </button>
       </form>
     );
   }
